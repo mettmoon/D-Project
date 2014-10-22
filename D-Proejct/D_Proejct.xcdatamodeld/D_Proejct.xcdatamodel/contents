@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Event">
-        <attribute name="timeStamp" optional="YES" attributeType="Date"/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A388a" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="DPData" syncable="YES">
+        <attribute name="dataType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dataValue" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="object" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DPObject" inverseName="data" inverseEntity="DPObject" syncable="YES"/>
+    </entity>
+    <entity name="DPDevice" representedClassName="" parentEntity="DPObject" syncable="YES">
+        <relationship name="project" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DPProject" inverseName="device" inverseEntity="DPProject" syncable="YES"/>
+        <relationship name="system" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DPSystem" inverseName="device" inverseEntity="DPSystem" syncable="YES"/>
+    </entity>
+    <entity name="DPObject" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="data" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DPData" inverseName="object" inverseEntity="DPData" syncable="YES"/>
+    </entity>
+    <entity name="DPProject" parentEntity="DPObject" syncable="YES">
+        <relationship name="device" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DPDevice" inverseName="project" inverseEntity="DPDevice" syncable="YES"/>
+        <relationship name="system" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DPSystem" inverseName="project" inverseEntity="DPSystem" syncable="YES"/>
+        <relationship name="xcode" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DPXcode" inverseName="project" inverseEntity="DPXcode" syncable="YES"/>
+    </entity>
+    <entity name="DPSystem" parentEntity="DPObject" syncable="YES">
+        <attribute name="releasedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="device" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DPDevice" inverseName="system" inverseEntity="DPDevice" syncable="YES"/>
+        <relationship name="project" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DPProject" inverseName="system" inverseEntity="DPProject" syncable="YES"/>
+    </entity>
+    <entity name="DPXcode" parentEntity="DPObject" syncable="YES">
+        <relationship name="project" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DPProject" inverseName="xcode" inverseEntity="DPProject" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="261" positionY="189" width="128" height="60"/>
+        <element name="DPDevice" positionX="261" positionY="198" width="128" height="73"/>
+        <element name="DPProject" positionX="270" positionY="207" width="128" height="88"/>
+        <element name="DPSystem" positionX="324" positionY="252" width="128" height="88"/>
+        <element name="DPXcode" positionX="342" positionY="288" width="128" height="58"/>
+        <element name="DPData" positionX="351" positionY="306" width="128" height="88"/>
+        <element name="DPObject" positionX="297" positionY="261" width="128" height="73"/>
     </elements>
 </model>
